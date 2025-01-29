@@ -5,19 +5,33 @@
       /* Grid container styling */
       .grid-container {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Flexible columns */
-        gap: 10px; /* Space between grid items */
-        width: 100%;
-        max-width: 1200px; /* Adjust as needed */
+        grid-template-columns: repeat(3, 1fr); /* 3 columns for better balance */
+        gap: 20px; /* More space between items */
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        max-width: 1000px; /* Balanced width */
         margin: 0 auto;
       }
 
       /* Styling for each Lottie player */
       .grid-container lottie-player {
         width: 100%;
+        max-width: 250px; /* Ensures better scaling */
         height: auto;
-        max-width: 100%; /* Ensure it fits within the grid cell */
         border: 1px solid #ccc; /* Optional: Add a border for visual clarity */
+      }
+
+      @media (max-width: 768px) {
+        .grid-container {
+          grid-template-columns: repeat(2, 1fr); /* Switch to 2 columns on smaller screens */
+        }
+      }
+
+      @media (max-width: 480px) {
+        .grid-container {
+          grid-template-columns: repeat(1, 1fr); /* Single column for mobile */
+        }
       }
     </style>
   </head>
@@ -28,7 +42,7 @@
     <div class="grid-container" id="lottie-grid"></div>
 
     <script>
-      // Shuffled array of Lottie animation links
+      // Lottie animation links (shuffled for variety)
       const animationLinks = [
         "https://raw.githubusercontent.com/bayrax-ar/lottie-animations/refs/heads/main/3_Cooking_Pan.json",
         "https://raw.githubusercontent.com/bayrax-ar/lottie-animations/refs/heads/main/D7k%20logo%20lottie.json",
@@ -41,10 +55,9 @@
         "https://raw.githubusercontent.com/bayrax-ar/lottie-animations/refs/heads/main/Resibu%20Logo%20Animation.json",
         "https://raw.githubusercontent.com/bayrax-ar/lottie-animations/refs/heads/main/logo%20loading%202%20.json",
         "https://raw.githubusercontent.com/bayrax-ar/lottie-animations/refs/heads/main/sunnygreen.txt",
-        
-      ];
+     ].slice(0, 11); // Use exactly 11 animations
 
-      // Function to dynamically create and append Lottie players
+      // Function to load Lottie animations dynamically
       function loadLottieAnimations() {
         const gridContainer = document.getElementById("lottie-grid");
 
@@ -56,13 +69,10 @@
           lottiePlayer.setAttribute("loop", "");
           lottiePlayer.setAttribute("autoplay", "");
 
-          // Randomize size
-          const width = Math.floor(Math.random() * (300 - 100 + 1)) + 100;
-          const height = Math.floor(Math.random() * (300 - 100 + 1)) + 100;
-          lottiePlayer.style.width = `${width}px`;
-          lottiePlayer.style.height = `${height}px`;
+          // Apply a fixed size for better uniformity
+          lottiePlayer.style.width = "200px";
+          lottiePlayer.style.height = "200px";
 
-          // Append to the grid
           gridContainer.appendChild(lottiePlayer);
         });
       }
